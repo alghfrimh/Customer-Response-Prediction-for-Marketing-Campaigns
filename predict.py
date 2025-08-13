@@ -20,7 +20,7 @@ def run():
         st.subheader("Biography")
         cid = st.text_input("Customer ID", placeholder="1234")
 
-        edu = st.selectbox("Education", ["Basic", "Graduate", "Master", "PhD"])
+        edu = st.selectbox("Education", ["Basic", "Graduation", "Master", "PhD"])
         marital = st.selectbox(
             "Marital Status",
             ["Married", "Together", "Single", "Divorced", "Widow", "Other"],
