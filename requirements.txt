@@ -1,0 +1,7 @@
+pandas
+streamlit
+matplotlib
+seaborn
+pillow
+scikit-learn==1.7.1
+datetime
