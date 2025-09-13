@@ -1,5 +1,22 @@
 # Customer Response Prediction for Marketing Campaigns
 
+
+<p align="center">
+  <img src="deployment/fmcg_cmp.jpg" alt="App preview" width="750">
+</p>
+<p align="center">
+  <!-- Deployment -->
+  <a href="https://campaign-marketing.streamlit.app/" target="_blank">
+    <img alt="Open Streamlit App"
+         src="https://img.shields.io/badge/Deployment-Open%20App-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white">
+  </a>
+  <!-- Dataset -->
+  <a href="https://www.kaggle.com/datasets/rodsaldanha/marketing-campaign" target="_blank">
+    <img alt="Kaggle Dataset"
+         src="https://img.shields.io/badge/Dataset-Kaggle-20BEFF?style=for-the-badge&logo=kaggle&logoColor=white">
+  </a>
+</p>
+
 ## Repository Outline
 ```
 Customer-Response-Prediction-for-Marketing-Campaigns
@@ -76,8 +93,9 @@ A supervised learning approach is used to build a classification model that pred
 
 ## Reference
 
-- [Kaggle - Marketing Campaign](https://www.kaggle.com/datasets/rodsaldanha/arketing-campaign)
-
-- [Deployment - Marketing Campaign Dashboard](https://campaignmarketing.streamlit.app/)
+- [**How to Upsell & Cross-Sell: Proven Tactics + Examples**](https://www.shopify.com/blog/upselling-cross-selling)
+- [**Classification metrics**](https://scikit-learn.org/stable/modules/model_evaluation.html#classification-metrics)
+- [**Gradient Boosting Classifier**](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.GradientBoostingClassifier.html)
+- [**Precision–Recall Curve**](https://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html)
 
 ---
