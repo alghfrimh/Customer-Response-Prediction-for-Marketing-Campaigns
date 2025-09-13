@@ -2,7 +2,7 @@
 
 
 <p align="center">
-  <img src="deployment/fmcg_cmp.jpg" alt="App preview" width="700">
+  <img src="deployment/fmcg_cmp.jpg" alt="App preview" width="800">
 </p>
 <p align="center">
   <!-- Deployment -->
