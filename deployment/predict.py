@@ -5,11 +5,15 @@ import pickle
 import datetime
 
 # Load model
-with open('best_model.pkl', 'rb') as file_1:
+with open('deployment/best_model.pkl', 'rb') as file_1:
     best_model = pickle.load(file_1)
 
 def run():
     st.write("# Customer's Campaign Response")
+
+    # session flag to remember that biography has been saved
+    if "bio_saved" not in st.session_state:
+        st.session_state["bio_saved"] = False
 
     # batas tanggal (2012–2014)
     min_date = datetime.date(2012, 1, 1)
@@ -41,21 +45,22 @@ def run():
         bio_submitted = st.form_submit_button("Save Bio")
 
     if bio_submitted:
+        st.session_state["bio_saved"] = True  # remember that bio is saved
         st.success("Biography saved.")
 
     # ==== FORM 2: Product + Campaign ====
     with st.form("product_form"):
-        st.subheader("Amount of Products")
-        wine  = st.number_input("Wine Product",  min_value=0, step=1)
-        fruit = st.number_input("Fruit Product", min_value=0, step=1)
-        meat  = st.number_input("Meat Product",  min_value=0, step=1)
-        fish  = st.number_input("Fish Product",  min_value=0, step=1)
-        sweet = st.number_input("Sweet Product", min_value=0, step=1)
-        gold  = st.number_input("Gold Product",  min_value=0, step=1)
+        st.subheader("Spending by Product")
+        wine  = st.number_input("Wine Products",  min_value=0, step=1)
+        fruit = st.number_input("Fruit Products", min_value=0, step=1)
+        meat  = st.number_input("Meat Products",  min_value=0, step=1)
+        fish  = st.number_input("Fish Products",  min_value=0, step=1)
+        sweet = st.number_input("Sweet Products", min_value=0, step=1)
+        gold  = st.number_input("Gold Products",  min_value=0, step=1)
 
         # preview total di dalam form
         total = wine + fruit + meat + fish + sweet + gold
-        st.number_input("Total Product", value=total, disabled=True)
+        st.number_input("Total Products", value=total, disabled=True)
 
         # Campaign & Deals
         st.subheader("Campaign and Deals")
@@ -71,6 +76,7 @@ def run():
             """Return 1 if Yes, else 0."""
             choice = st.radio(label, ["No", "Yes"], index=0 if default == "No" else 1, horizontal=True)
             return 1 if choice == "Yes" else 0
+
         cmp1 = yesno("Campaign 1 Accepted?")
         cmp2 = yesno("Campaign 2 Accepted?")
         cmp3 = yesno("Campaign 3 Accepted?")
@@ -111,29 +117,40 @@ def run():
     st.caption("Preview input")
     st.dataframe(data_inf, use_container_width=True)
 
+    # Drop kolom id (model biasanya tidak dilatih dengan id)
+    X_infer = data_inf.drop(columns=["id"], errors="ignore")
+
+    # Label mengikuti input Customer ID; fallback kalau kosong
+    label = f"Customer {str(cid).strip()}" if str(cid).strip() else "This customer"
+
+    # === Guard: must save biography first ===
+    if submitted and not st.session_state.get("bio_saved", False):
+        st.error("Please complete the Biography section and click **Save Bio** first.")
+        st.stop()  # stop before any prediction
+
     # Jalankan prediksi hanya saat tombol Submit ditekan
     if submitted:
         try:
             # Prediksi kelas
-            result = int(best_model.predict(data_inf)[0])
+            result = int(best_model.predict(X_infer)[0])
 
             # Probabilitas (jika tersedia)
             prob = None
             if hasattr(best_model, "predict_proba"):
-                prob = float(best_model.predict_proba(data_inf)[0][1]) * 100
+                prob = float(best_model.predict_proba(X_infer)[0][1]) * 100
 
             # Tampilkan hasil
             if result == 1:
                 if prob is not None:
-                    st.success(f'This customer is predicted to respond (1) with a probability of {prob:.2f}%.')
+                    st.success(f'{label} is predicted to respond (1) with a probability of {prob:.2f}%.')
                 else:
                     st.success('This customer is predicted to respond (1).')
             else:
                 if prob is not None:
-                    st.warning(f'This customer is predicted NOT to respond (0) with a probability of {100 - prob:.2f}%.')
+                    st.warning(f'{label} is predicted NOT to respond (0) with a probability of {100 - prob:.2f}%.')
                 else:
                     st.warning('This customer is predicted NOT to respond (0).')
         except Exception as e:
             st.error(f'Prediction failed: {e}')
-        else:
-            st.info('Fill out the form and click **Submit All Data** to run the prediction.')
+    else:
+        st.info('Fill out the form and click **Submit All Data** to run the prediction.')

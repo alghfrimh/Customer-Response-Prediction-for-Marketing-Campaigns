@@ -12,7 +12,7 @@ def run():
     st.title("Marketing Campaign Data Analysis")
 
     # Gambar cover
-    gambar = Image.open('fmcg_cmp.jpg')
+    gambar = Image.open('deployment/fmcg_cmp.jpg')
     st.image(gambar, use_container_width=True)
 
     # Background
@@ -27,11 +27,11 @@ def run():
 
     # Load dataset utama + preview tabel
     st.subheader("Dataset")
-    data = pd.read_csv('marketing_cmp_cleaned.csv')
+    data = pd.read_csv('deployment/marketing_cmp_cleaned.csv')
     st.dataframe(data, use_container_width=True)
 
     # Load dataset EDA
-    data2 = pd.read_csv('marketing_cmp_eda.csv')
+    data2 = pd.read_csv('deployment/marketing_cmp_eda.csv')
 
     # Pilihan visualisasi
     st.subheader("Exploratory Data Analysis")

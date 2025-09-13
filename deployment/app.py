@@ -1,13 +1,13 @@
 # Import libraries
 import streamlit as st
-import eda, deploy.predict as predict
+import eda, predict
 
 # bagian dalam sidebar
 with st.sidebar:
     st.write('# Page Navigation')
 
     # Toggle choose menu
-    page = st.selectbox('Choose Page', ('EDA', 'Prediction'))
+    page = st.selectbox('Choose Page', ('Homepage', 'Prediction'))
 
     # Test
     st.write('Current Page:', page)
@@ -23,7 +23,7 @@ with st.sidebar:
     unsafe_allow_html=True)
 
 # bagian luar sidebar
-if page == 'EDA':
+if page == 'Homepage':
     eda.run()
 else:
     predict.run()
