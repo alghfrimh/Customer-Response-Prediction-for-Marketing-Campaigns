@@ -94,7 +94,7 @@ A supervised learning approach is used to build a classification model that pred
 ## Reference
 
 - [**How to Upsell & Cross-Sell: Proven Tactics + Examples**](https://www.shopify.com/blog/upselling-cross-selling)
-- [**Classification metrics**](https://scikit-learn.org/stable/modules/model_evaluation.html#classification-metrics)
+- [**Classification Metrics**](https://scikit-learn.org/stable/modules/model_evaluation.html#classification-metrics)
 - [**Gradient Boosting Classifier**](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.GradientBoostingClassifier.html)
 - [**Precision–Recall Curve**](https://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html)
 
