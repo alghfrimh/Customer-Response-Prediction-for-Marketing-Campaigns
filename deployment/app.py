@@ -1,6 +1,6 @@
 # Import libraries
 import streamlit as st
-import eda, predict
+import eda, deploy.predict as predict
 
 # bagian dalam sidebar
 with st.sidebar:

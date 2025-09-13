@@ -29,7 +29,7 @@ def run():
         income  = st.number_input("Income", min_value=0, step=1)
         kid     = st.number_input("Kid Home", min_value=0, step=1)
         teen    = st.number_input("Teen Home", min_value=0, step=1)
-        recency = st.number_input("Recency", min_value=0, step=1)
+        recency = st.number_input("Recency (days)", min_value=0, step=1)
 
         reg_date = st.date_input(
             "Registration Date",
@@ -45,7 +45,7 @@ def run():
 
     # ==== FORM 2: Product + Campaign ====
     with st.form("product_form"):
-        st.subheader("Product")
+        st.subheader("Amount of Products")
         wine  = st.number_input("Wine Product",  min_value=0, step=1)
         fruit = st.number_input("Fruit Product", min_value=0, step=1)
         meat  = st.number_input("Meat Product",  min_value=0, step=1)
@@ -67,11 +67,15 @@ def run():
 
         # Campaign Acceptance
         st.subheader("Last Campaign Responses")
-        cmp1 = st.number_input("Campaign 1 Accepted", min_value=0, max_value=1, step=1)
-        cmp2 = st.number_input("Campaign 2 Accepted", min_value=0, max_value=1, step=1)
-        cmp3 = st.number_input("Campaign 3 Accepted", min_value=0, max_value=1, step=1)
-        cmp4 = st.number_input("Campaign 4 Accepted", min_value=0, max_value=1, step=1)
-        cmp5 = st.number_input("Campaign 5 Accepted", min_value=0, max_value=1, step=1)
+        def yesno(label, default="No"):
+            """Return 1 if Yes, else 0."""
+            choice = st.radio(label, ["No", "Yes"], index=0 if default == "No" else 1, horizontal=True)
+            return 1 if choice == "Yes" else 0
+        cmp1 = yesno("Campaign 1 Accepted?")
+        cmp2 = yesno("Campaign 2 Accepted?")
+        cmp3 = yesno("Campaign 3 Accepted?")
+        cmp4 = yesno("Campaign 4 Accepted?")
+        cmp5 = yesno("Campaign 5 Accepted?")
 
         submitted = st.form_submit_button("Submit All Data")
 
@@ -121,18 +125,15 @@ def run():
             # Tampilkan hasil
             if result == 1:
                 if prob is not None:
-                    st.success(f'Customer diprediksi akan memberikan response (1) '
-                               f'dengan probabilitas {prob:.2f}%')
+                    st.success(f'This customer is predicted to respond (1) with a probability of {prob:.2f}%.')
                 else:
-                    st.success('Customer diprediksi akan memberikan response (1).')
+                    st.success('This customer is predicted to respond (1).')
             else:
                 if prob is not None:
-                    st.warning(f'Customer diprediksi tidak akan memberikan response (0) '
-                               f'dengan probabilitas {100 - prob:.2f}%')
+                    st.warning(f'This customer is predicted NOT to respond (0) with a probability of {100 - prob:.2f}%.')
                 else:
-                    st.warning('Customer diprediksi tidak akan memberikan response (0).')
-
+                    st.warning('This customer is predicted NOT to respond (0).')
         except Exception as e:
-            st.error(f"Gagal melakukan prediksi: {e}")
-    else:
-        st.info("Isi form dan klik **Submit All Data** untuk menjalankan prediksi.")
+            st.error(f'Prediction failed: {e}')
+        else:
+            st.info('Fill out the form and click **Submit All Data** to run the prediction.')
