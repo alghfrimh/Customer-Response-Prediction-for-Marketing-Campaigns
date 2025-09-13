@@ -11,7 +11,7 @@
          src="https://img.shields.io/badge/Deployment-Open%20App-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white">
   </a>
   <!-- Dataset -->
-  <a href="https://www.kaggle.com/datasets/rodsaldanha/marketing-campaign" target="_blank">
+  <a href="https://www.kaggle.com/datasets/rodsaldanha/arketing-campaign" target="_blank">
     <img alt="Kaggle Dataset"
          src="https://img.shields.io/badge/Dataset-Kaggle-20BEFF?style=for-the-badge&logo=kaggle&logoColor=white">
   </a>
